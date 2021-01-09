@@ -43,7 +43,8 @@
         @auth
             @include('controle.includes.navbar')
         @endauth
-        <div class="container-fluid">
+        <div class="container-fluid mt-5">
+            @include('controle.includes.mensagem')
             @yield('content')
         </div>
 
@@ -56,6 +57,8 @@
   <!-- Bootstrap core JavaScript -->
   <!-- Scripts -->
   <script src="{{ asset('js/dashboard.js') }}"></script>
+  <link rel="stylesheet" href="{{ asset('/library/select2-4.0.13/dist/css/select2.min.css') }}">
+  <script src="{{ asset('/library/select2-4.0.13/dist/js/select2.min.js') }}"></script>
 
   <!-- Menu Toggle Script -->
   <script>
@@ -63,9 +66,16 @@
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+    $('.atencao').click(function() {
+        if(confirm('Deseja excluir o registro?')) {
+            return;
+        } else {
+            return false;
+        }
+    })
   </script>
 
-
+  @yield('scripts')
 
 </body>
 
