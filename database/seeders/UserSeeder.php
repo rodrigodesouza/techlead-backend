@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'name' => 'Administrador',
             'email' => $email,
             'password' => Hash::make($password),
+            'grupo_usuario_id' => 1,
         ]);
         $this->command->info('Login: ' . $email);
         $this->command->info('Senha: ' . $password);

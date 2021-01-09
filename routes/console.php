@@ -19,6 +19,7 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Artisan::command('dashboard:install', function() {
+    $this->call('migrate');
     $this->call('db:seed', [
         '--class' => 'UserSeeder'
     ]);
