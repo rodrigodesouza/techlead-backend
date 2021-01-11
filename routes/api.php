@@ -21,11 +21,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('livros', function() {
+    Route::get('livros', function () {
         return \App\Models\Livro::get();
     });
 });
-
 
 Route::group(['middleware' => ['api']], function () {
     Route::post('login', [ClienteController::class, 'login']);

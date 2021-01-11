@@ -10,9 +10,6 @@
 
   <title>{{ config('app.name', 'Laravel') }}</title>
 
-  <!-- Bootstrap core CSS -->
-
-  <!-- Custom styles for this template -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body {

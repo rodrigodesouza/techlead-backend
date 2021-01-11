@@ -39,8 +39,6 @@ class ClienteController extends Controller
     {
         $input = $request->all();
 
-        // DB::beginTransaction();
-
         try {
             $input['password'] = bcrypt($input['password']);
             $cliente = Cliente::create($input);
@@ -67,12 +65,9 @@ class ClienteController extends Controller
         Auth::guard('cliente')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
+
         return response(['error' => false, 'message' => 'logout realizado!'], 200);
-        // return $request->wantsJson()
-        //     ? new JsonResponse([], 204)
-        //     : [];
     }
 
     /**
