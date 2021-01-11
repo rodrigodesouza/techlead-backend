@@ -37,6 +37,7 @@
     $(document).ready(function() {
         $('.select2').select2({
             tags: true,
+            placeholder: 'Nome do autor'
         });
     });
     </script>

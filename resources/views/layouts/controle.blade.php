@@ -16,14 +16,6 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="/css/simple-sidebar.css" rel="stylesheet">
 
-    @guest
-    <style>
-        body {
-            background-color: #2f3031 !important;
-        }
-    </style>
-    @endguest
-
 </head>
 
 <body>
