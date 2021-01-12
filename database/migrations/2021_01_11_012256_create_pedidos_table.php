@@ -17,7 +17,7 @@ class CreatePedidosTable extends Migration
             $table->id();
             $table->bigInteger('livro_id')->unsigned();
             $table->bigInteger('cliente_id')->unsigned();
-            $table->enum('status_pedido', ['solicitado', 'aprovado', 'negado', 'devolvivo'])->nullable()->default('solicitado');
+            $table->enum('status_pedido', ['solicitado', 'aprovado', 'negado', 'devolvido'])->nullable()->default('solicitado');
             $table->bigInteger('user_id')->nullable()->unsigned()->comment('usuário que atualizou o pedido');
             $table->dateTime('prazo_devolucao')->nullable();
             $table->timestamps();

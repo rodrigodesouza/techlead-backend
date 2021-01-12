@@ -25,7 +25,11 @@
                     <td>{{ $livro->id }}</td>
                     <td>{{ $livro->nome }}</td>
                     <td>{{ $livro->autor->nome ?? '' }}</td>
-                    <td>{{ $livro->status }}</td>
+                    <td>
+                        <span class="badge badge-{{ $livro->status == 'disponivel' ? 'success' : 'danger' }}">
+                            {{ ucfirst($livro->status) }}
+                        </span>
+                    </td>
                     <td>{{ ($livro->ativo) ? 'SIM' : 'NÃO' }}</td>
                     <td>{{ $livro->created_at->format('d/m/Y') }}</td>
                     <td>

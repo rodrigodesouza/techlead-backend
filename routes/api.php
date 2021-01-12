@@ -27,4 +27,5 @@ Route::group(['middleware' => ['api']], function () {
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('livros', [LivroController::class, 'index']);
     Route::post('livros/solicitar', [PedidoController::class, 'solicitaLivro']);
+    Route::put('livros/devolver', [PedidoController::class, 'devolverLivro']);
 });

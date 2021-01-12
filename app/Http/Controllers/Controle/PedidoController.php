@@ -15,7 +15,8 @@ class PedidoController extends Controller
      */
     public function index(PedidoRepository $pedidoRepository)
     {
-        $pedidos = $pedidoRepository->pedidos();
+        // registros movidos para o Liveware;
+        $pedidos = [];//$pedidoRepository->pedidos();
 
         return view('controle.pedidos.index', ['pedidos' => $pedidos]);
     }

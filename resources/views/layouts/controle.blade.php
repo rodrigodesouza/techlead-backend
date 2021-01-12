@@ -15,6 +15,9 @@
   <!-- Custom styles for this template -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="/css/simple-sidebar.css" rel="stylesheet">
+
+  @livewireStyles
+
   <style>
       .w-5{
         max-width: 25px !important;
@@ -76,6 +79,8 @@
   </script>
 
   @yield('scripts')
+
+  @livewireScripts
 
 </body>
 

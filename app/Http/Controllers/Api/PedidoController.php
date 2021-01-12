@@ -18,6 +18,11 @@ class PedidoController extends Controller
     {
         return $this->pedidoRepository->solicitaLivro();
     }
+    public function devolverLivro()
+    {
+        $id = request()->get('pedido_id');
+        return $this->pedidoRepository->alteraStatus($id, 'devolvido');
+    }
     /**
      * Display a listing of the resource.
      *
