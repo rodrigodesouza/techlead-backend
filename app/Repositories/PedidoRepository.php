@@ -68,4 +68,9 @@ class PedidoRepository
     {
         return $this->model->where('cliente_id', request()->user()->id)->where('status_pedido', 'aprovado')->count();
     }
+
+    public function pedidos()
+    {
+        return $this->model->orderBy('created_at', 'asc')->paginate(5);
+    }
 }

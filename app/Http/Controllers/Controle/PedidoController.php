@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Controle;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\PedidoRepository;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
@@ -12,9 +13,11 @@ class PedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PedidoRepository $pedidoRepository)
     {
-        //
+        $pedidos = $pedidoRepository->pedidos();
+
+        return view('controle.pedidos.index', ['pedidos' => $pedidos]);
     }
 
     /**

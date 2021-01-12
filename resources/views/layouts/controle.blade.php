@@ -15,6 +15,14 @@
   <!-- Custom styles for this template -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="/css/simple-sidebar.css" rel="stylesheet">
+  <style>
+      .w-5{
+        max-width: 25px !important;
+      }
+      .h-5 {
+        max-height: 25px !important;
+      }
+  </style>
 
 </head>
 

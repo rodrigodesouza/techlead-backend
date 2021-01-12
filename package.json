@@ -10,6 +10,8 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@pnotify/core": "^5.2.0",
+        "@pnotify/mobile": "^5.2.0",
         "axios": "^0.21",
         "bootstrap": "^4.0.0",
         "browser-sync": "^2.26.13",
@@ -27,6 +29,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "vue-pnotify": "^1.0.1",
         "vue-router": "^3.4.9",
         "vuex": "^3.6.0",
         "vuex-persistedstate": "^4.0.0-beta.2"

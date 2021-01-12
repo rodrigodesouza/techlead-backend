@@ -14,13 +14,19 @@ Vue.use(VueRouter)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+// import Vue from 'vue'
+
+import VuePNotify from 'vue-pnotify'
+Vue.use(VuePNotify)
+
 // const files = require.context('./components/pages/', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('menu-component', require('./Vue/components/MenuComponent.vue').default);
 Vue.component('card-component', require('./Vue/components/CardComponent.vue').default);
 
-import mixin from './Vue/mixin';
+import mixin from './Vue/mixins/mixin';
+import pedidoMixin from './Vue/mixins/pedido';
 import routes from './Vue/routes';
 
 const router = routes;
@@ -30,6 +36,8 @@ import vuexStore from './Vue/vuexStore';
 let apiAxios = axios.create({
     timeout: 5000,
 });
+
+apiAxios.defaults.withCredentials = true;
 
 router.beforeEach((to, from, next) => {
     if (vuexStore.getters.autenticado) {
@@ -62,6 +70,6 @@ Vue.prototype.$axios = apiAxios;
 const app = new Vue({
     el: '#app',
     router,
-    mixins: [mixin],
+    mixins: [mixin, pedidoMixin],
     store: vuexStore,
 });

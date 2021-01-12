@@ -9,7 +9,6 @@ export default {
         return Axios.post('/api/login', data).then((res) => {
             if (res.data.token !== undefined) {
                 this.setUserLogin(res.data);
-                // this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
             }
             return res;
         }).catch((e) => e.response)

@@ -17,4 +17,13 @@ class Pedido extends Model
         'prazo_devolucao',
     ];
 
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+
+    public function livro()
+    {
+        return $this->belongsTo(Livro::class);
+    }
 }

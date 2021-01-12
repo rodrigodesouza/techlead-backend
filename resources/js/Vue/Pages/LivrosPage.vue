@@ -1,7 +1,8 @@
 <template>
     <div class="card">
         <div class="card-header">
-            Livros
+            Galeria de livros
+            <!-- <input type="search" name="q" id="q" placeholder="buscar livro"> -->
         </div>
         <div class="card-body">
             <div class="row">

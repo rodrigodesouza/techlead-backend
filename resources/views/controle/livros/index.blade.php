@@ -11,7 +11,7 @@
           <thead>
             <tr>
                 <th>#ID</th>
-                <th>Nome</th>
+                <th>Titulo</th>
                 <th>Autor</th>
                 <th>Disponível</th>
                 <th>Publicado</th>
@@ -39,13 +39,13 @@
                 </tr>
               @empty
                   <tr>
-                      <td colspan="5">Nenhum livro cadastrado.</td>
+                      <td colspan="7">Nenhum livro cadastrado.</td>
                   </tr>
               @endforelse
           </tbody>
           <tfoot>
               <tr>
-                  <td colspan="5">{!! $livros->links() !!}</td>
+                  <td colspan="7">{!! $livros->links() !!}</td>
               </tr>
           </tfoot>
       </table>
