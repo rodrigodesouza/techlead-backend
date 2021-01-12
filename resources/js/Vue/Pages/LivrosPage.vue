@@ -24,9 +24,9 @@ export default {
     },
     methods: {
         getLivros() {
-            window.axios.get('/api/livros').then((res) => {
+            this.$axios.get('/api/livros').then((res) => {
                 this.livros = res.data;
-            })
+            });
         }
     },
 }

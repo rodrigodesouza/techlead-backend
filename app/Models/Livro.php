@@ -18,8 +18,15 @@ class Livro extends Model
         'ativo',
     ];
 
+    protected $appends = ['resumo'];
+
     public function autor()
     {
         return $this->belongsTo(Autor::class);
+    }
+
+    public function getResumoAttribute()
+    {
+        return $this->attributes['resumo'] = \Str::limit($this->attributes['descricao'], 100, '...');
     }
 }

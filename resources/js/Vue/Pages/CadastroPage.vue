@@ -1,11 +1,11 @@
 <template>
     <div class="col d-flex justify-content-center mt-5">
         <aside class="col-sm-6">
-            <p>Novo cadastro</p>
+            <!-- <p>Novo cadastro</p> -->
             <div class="card">
                 <article class="card-body">
                     <router-link :to="{ name: 'login' }" class="float-right btn btn-outline-primary">Login</router-link>
-                    <h4 class="card-title mb-4 mt-1">Sign in</h4>
+                    <h4 class="card-title mb-4 mt-1">Novo cadastro</h4>
                     <form id="cadastro" @submit="cadastrar" action="javascript:void(0)" method="post">
                         <p v-if="errors.length || titulo_erros" class="alert alert-danger">
                             <b v-text="titulo_erros"></b>
@@ -95,9 +95,10 @@
 
                 if (!this.errors.length) {
                     let retorno = await this.$root.cadastrar(this.dados);
-                    console.log(retorno, ' ;;retorno')
+                    // console.log(retorno, ' ;;retorno')
                     if (retorno.data.token !== undefined) {
                         this.$root.setUserLogin(retorno.data)
+                        this.$router.push({name: 'livros'})
                         // console.log('cadastro realizado')
 
                     } else {

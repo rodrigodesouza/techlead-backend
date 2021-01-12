@@ -40,9 +40,8 @@ class ClienteController extends Controller
         $input = $request->all();
 
         try {
-            $input['password'] = bcrypt($input['password']);
-            $cliente = Cliente::create($input);
-            // Autenticação: Usado para SPA Authentication com Sactum
+            $input['password']  = bcrypt($input['password']);
+            $cliente            = Cliente::create($input);
             Auth::guard('cliente')->loginUsingId($cliente);
 
             $token          = $cliente->createToken($cliente->email);
@@ -63,21 +62,10 @@ class ClienteController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('cliente')->logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
 
         return response(['error' => false, 'message' => 'logout realizado!'], 200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
     }
 
     /**
@@ -114,14 +102,4 @@ class ClienteController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

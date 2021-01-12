@@ -2055,7 +2055,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 if (this.errors.length) {
-                  _context.next = 15;
+                  _context.next = 14;
                   break;
                 }
 
@@ -2064,10 +2064,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 12:
                 retorno = _context.sent;
-                console.log(retorno, ' ;;retorno');
 
+                // console.log(retorno, ' ;;retorno')
                 if (retorno.data.token !== undefined) {
-                  this.$root.setUserLogin(retorno.data); // console.log('cadastro realizado')
+                  this.$root.setUserLogin(retorno.data);
+                  this.$router.push({
+                    name: 'livros'
+                  }); // console.log('cadastro realizado')
                 } else {
                   if (retorno.status !== 200 || retorno.status !== 201) {
                     this.titulo_erros = retorno.data.message;
@@ -2086,7 +2089,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 }
 
-              case 15:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -2185,7 +2188,7 @@ __webpack_require__.r(__webpack_exports__);
     getLivros: function getLivros() {
       var _this = this;
 
-      window.axios.get('/api/livros').then(function (res) {
+      this.$axios.get('/api/livros').then(function (res) {
         _this.livros = res.data;
       });
     }
@@ -2268,7 +2271,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -2307,7 +2309,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 if (this.errors.length) {
-                  _context.next = 10;
+                  _context.next = 9;
                   break;
                 }
 
@@ -2316,13 +2318,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 7:
                 retorno = _context.sent;
-                console.log(retorno, ' ;;retorno');
 
                 if (retorno.data.token !== undefined) {
                   this.$root.setUserLogin(retorno.data);
                   this.$router.push({
                     name: 'livros'
-                  }); // console.log('cadastro realizado')
+                  });
                 } else {
                   if (retorno.status !== 200 || retorno.status !== 201) {
                     this.titulo_erros = retorno.data.message;
@@ -2341,7 +2342,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 }
 
-              case 10:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -2379,13 +2380,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  created: function created() {
-    window.axios.get('/api/livros').then(function (response) {
-      console.log(response);
-    });
-    this.$store.commit('increment');
-    console.log(this.$store.state.count);
-  }
+  created: function created() {}
 });
 
 /***/ }),
@@ -2402,25 +2397,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  created: function created() {
-    this.hello();
-  },
+  created: function created() {},
   methods: {
-    hello: function hello() {
-      console.log('hello from mixin!');
-    },
     login: function login(data) {
       var _this = this;
 
-      var Axios = window.axios;
-      var self = this;
+      var Axios = this.$axios;
       return Axios.post('/api/login', data).then(function (res) {
-        // this.$store.commit('setToken', res.data.token)
-        // self.$router.push({name: 'profile'})
         if (res.data.token !== undefined) {
-          _this.setUserLogin(res.data);
+          _this.setUserLogin(res.data); // this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
 
-          window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
         }
 
         return res;
@@ -2429,10 +2415,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     cadastrar: function cadastrar(data) {
-      return window.axios.post('/api/signup', data).then(function (res) {
-        return res; // this.$store.commit('setToken', res.data.token)
-        // Axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.token;
-        // self.$router.push({name: 'profile'})
+      return this.$axios.post('/api/signup', data).then(function (res) {
+        return res;
       })["catch"](function (e) {
         return e.response;
       });
@@ -2447,19 +2431,75 @@ __webpack_require__.r(__webpack_exports__);
     },
     userLogout: function userLogout(data) {
       var self = this;
-      window.axios.post('/api/logout').then(function (res) {
+      this.$axios.post('/api/logout').then(function (res) {
         self.$store.commit('setUsuario', null);
         self.$store.commit('setToken', null);
         self.$router.push({
           name: 'login'
         });
-        console.log('deslogou');
       })["catch"](function (e) {
         return console.log(e, ' e');
       });
     }
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/Vue/routes.js":
+/*!************************************!*\
+  !*** ./resources/js/Vue/routes.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _pages_LoginPage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pages/LoginPage */ "./resources/js/Vue/pages/LoginPage.vue");
+/* harmony import */ var _pages_ProfilePage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pages/ProfilePage */ "./resources/js/Vue/pages/ProfilePage.vue");
+/* harmony import */ var _pages_CadastroPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/CadastroPage */ "./resources/js/Vue/pages/CadastroPage.vue");
+/* harmony import */ var _pages_LivrosPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/LivrosPage */ "./resources/js/Vue/pages/LivrosPage.vue");
+/* harmony import */ var _pages_ForgotPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/ForgotPage */ "./resources/js/Vue/pages/ForgotPage.vue");
+ // Vue.use(VueRouter)
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_5__.default({
+  mode: 'hash',
+  routes: [{
+    path: '/',
+    name: 'login',
+    component: _pages_LoginPage__WEBPACK_IMPORTED_MODULE_0__.default
+  }, {
+    path: '/livros',
+    name: 'livros',
+    component: _pages_LivrosPage__WEBPACK_IMPORTED_MODULE_3__.default,
+    meta: {
+      requiresLogin: true
+    }
+  }, {
+    path: '/profile',
+    name: 'profile',
+    component: _pages_ProfilePage__WEBPACK_IMPORTED_MODULE_1__.default,
+    meta: {
+      requiresLogin: true
+    }
+  }, {
+    path: '/cadastrar',
+    name: 'cadastrar',
+    component: _pages_CadastroPage__WEBPACK_IMPORTED_MODULE_2__.default
+  }, {
+    path: '/esqueci-minha-senha',
+    name: 'forgot',
+    component: _pages_ForgotPage__WEBPACK_IMPORTED_MODULE_4__.default
+  }]
+}));
 
 /***/ }),
 
@@ -2537,13 +2577,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.common.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Vue_pages_LoginPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Vue/pages/LoginPage */ "./resources/js/Vue/pages/LoginPage.vue");
-/* harmony import */ var _Vue_pages_ProfilePage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Vue/pages/ProfilePage */ "./resources/js/Vue/pages/ProfilePage.vue");
-/* harmony import */ var _Vue_pages_CadastroPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Vue/pages/CadastroPage */ "./resources/js/Vue/pages/CadastroPage.vue");
-/* harmony import */ var _Vue_pages_LivrosPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Vue/pages/LivrosPage */ "./resources/js/Vue/pages/LivrosPage.vue");
-/* harmony import */ var _Vue_pages_ForgotPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Vue/pages/ForgotPage */ "./resources/js/Vue/pages/ForgotPage.vue");
-/* harmony import */ var _Vue_mixin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Vue/mixin */ "./resources/js/Vue/mixin.js");
-/* harmony import */ var _Vue_vuexStore__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Vue/vuexStore */ "./resources/js/Vue/vuexStore.js");
+/* harmony import */ var _Vue_mixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Vue/mixin */ "./resources/js/Vue/mixin.js");
+/* harmony import */ var _Vue_routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Vue/routes */ "./resources/js/Vue/routes.js");
+/* harmony import */ var _Vue_vuexStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Vue/vuexStore */ "./resources/js/Vue/vuexStore.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -2555,69 +2591,24 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__.default);
 
-Vue.use((vuex__WEBPACK_IMPORTED_MODULE_1___default()));
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./components/pages/', true, /\.vue$/i)
+Vue.use((vuex__WEBPACK_IMPORTED_MODULE_1___default())); // const files = require.context('./components/pages/', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('menu-component', __webpack_require__(/*! ./Vue/components/MenuComponent.vue */ "./resources/js/Vue/components/MenuComponent.vue").default);
 Vue.component('card-component', __webpack_require__(/*! ./Vue/components/CardComponent.vue */ "./resources/js/Vue/components/CardComponent.vue").default);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-//  pages Vue
 
 
+var router = _Vue_routes__WEBPACK_IMPORTED_MODULE_3__.default;
 
-
-
-
-
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__.default({
-  mode: 'hash',
-  routes: [{
-    path: '/',
-    name: 'login',
-    component: _Vue_pages_LoginPage__WEBPACK_IMPORTED_MODULE_2__.default
-  }, {
-    path: '/livros',
-    name: 'livros',
-    component: _Vue_pages_LivrosPage__WEBPACK_IMPORTED_MODULE_5__.default,
-    meta: {
-      requiresLogin: true
-    }
-  }, {
-    path: '/profile',
-    name: 'profile',
-    component: _Vue_pages_ProfilePage__WEBPACK_IMPORTED_MODULE_3__.default,
-    meta: {
-      requiresLogin: true
-    }
-  }, {
-    path: '/cadastrar',
-    name: 'cadastrar',
-    component: _Vue_pages_CadastroPage__WEBPACK_IMPORTED_MODULE_4__.default
-  }, {
-    path: '/esqueci-minha-senha',
-    name: 'forgot',
-    component: _Vue_pages_ForgotPage__WEBPACK_IMPORTED_MODULE_6__.default
-  }]
+var apiAxios = axios.create({
+  timeout: 5000
 });
-
 router.beforeEach(function (to, from, next) {
-  if (_Vue_vuexStore__WEBPACK_IMPORTED_MODULE_8__.default.getters.autenticado) {
-    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + _Vue_vuexStore__WEBPACK_IMPORTED_MODULE_8__.default.state.accessToken;
+  if (_Vue_vuexStore__WEBPACK_IMPORTED_MODULE_4__.default.getters.autenticado) {
+    apiAxios.defaults.headers.common['Authorization'] = 'Bearer ' + _Vue_vuexStore__WEBPACK_IMPORTED_MODULE_4__.default.state.accessToken;
   }
 
-  if (to.meta.requiresLogin !== undefined && !_Vue_vuexStore__WEBPACK_IMPORTED_MODULE_8__.default.getters.autenticado) {
+  if (to.meta.requiresLogin !== undefined && !_Vue_vuexStore__WEBPACK_IMPORTED_MODULE_4__.default.getters.autenticado) {
     next({
       name: 'login'
     });
@@ -2631,11 +2622,25 @@ router.beforeEach(function (to, from, next) {
     });
   }
 });
+apiAxios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response.status !== undefined && error.response.status === 401) {
+    _Vue_vuexStore__WEBPACK_IMPORTED_MODULE_4__.default.commit('setUsuario', null);
+    _Vue_vuexStore__WEBPACK_IMPORTED_MODULE_4__.default.commit('setToken', null);
+    router.push({
+      name: 'profile'
+    });
+  }
+
+  throw error;
+});
+Vue.prototype.$axios = apiAxios;
 var app = new Vue({
   el: '#app',
   router: router,
-  mixins: [_Vue_mixin__WEBPACK_IMPORTED_MODULE_7__.default],
-  store: _Vue_vuexStore__WEBPACK_IMPORTED_MODULE_8__.default
+  mixins: [_Vue_mixin__WEBPACK_IMPORTED_MODULE_2__.default],
+  store: _Vue_vuexStore__WEBPACK_IMPORTED_MODULE_4__.default
 });
 
 /***/ }),
@@ -39278,7 +39283,7 @@ var render = function() {
         "p",
         {
           staticClass: "card-text",
-          domProps: { textContent: _vm._s(_vm.livro.descricao) }
+          domProps: { textContent: _vm._s(_vm.livro.resumo) }
         },
         [
           _vm._v(
@@ -39450,8 +39455,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col d-flex justify-content-center mt-5" }, [
     _c("aside", { staticClass: "col-sm-6" }, [
-      _c("p", [_vm._v("Novo cadastro")]),
-      _vm._v(" "),
       _c("div", { staticClass: "card" }, [
         _c(
           "article",
@@ -39467,7 +39470,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("h4", { staticClass: "card-title mb-4 mt-1" }, [
-              _vm._v("Sign in")
+              _vm._v("Novo cadastro")
             ]),
             _vm._v(" "),
             _c(
@@ -39672,7 +39675,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col d-flex justify-content-center mt-5" }, [
     _c("aside", { staticClass: "col-sm-6" }, [
-      _c("p", [_vm._v("Recuperar senha")]),
+      _c("p", { staticClass: "text-white" }, [_vm._v("Recuperar senha")]),
       _vm._v(" "),
       _c("div", { staticClass: "card" }, [
         _c(
@@ -39689,7 +39692,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("h4", { staticClass: "card-title mb-4 mt-1" }, [
-              _vm._v("Sign in")
+              _vm._v("Recuperar senha")
             ]),
             _vm._v(" "),
             _vm._m(0)
@@ -39707,11 +39710,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("form", [
       _c("div", { staticClass: "form-group" }, [
-        _c("label", [_vm._v("Your email")]),
+        _c("label", [_vm._v("Seu email")]),
         _vm._v(" "),
         _c("input", {
           staticClass: "form-control",
-          attrs: { name: "", placeholder: "Email", type: "email" }
+          attrs: { name: "", placeholder: "Email", type: "email", disabled: "" }
         })
       ]),
       _vm._v(" "),
@@ -39720,7 +39723,7 @@ var staticRenderFns = [
           "button",
           {
             staticClass: "btn btn-primary btn-block",
-            attrs: { type: "submit" }
+            attrs: { type: "button", disabled: "" }
           },
           [_vm._v(" Enviar e-mail ")]
         )
@@ -39798,7 +39801,7 @@ var render = function() {
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col d-flex justify-content-center mt-5" }, [
       _c("aside", { staticClass: "col-sm-6" }, [
-        _c("p", [_vm._v("Login")]),
+        _c("p", { staticClass: "text-white" }, [_vm._v("Login")]),
         _vm._v(" "),
         _c("div", { staticClass: "card" }, [
           _c(

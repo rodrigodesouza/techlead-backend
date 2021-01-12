@@ -19,9 +19,13 @@
               {{-- <small id="nomeHelp" class="form-text text-muted">Nome do livro</small> --}}
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Autor</label>
+              <label for="autor_id">Autor</label>
               {!! Form::select('autor_id', ['' => '']+$autors, null, ['class' => 'form-control select2', 'maxlength' => 255, 'required']) !!}
             </div>
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                {!! Form::textarea('descricao', null, ['class' => 'form-control', 'rows' => 5]) !!}
+              </div>
             <div class="form-group form-check">
               {!! Form::checkbox('ativo', 1, null, ['class' => 'form-check-input', 'id' => 'ativo']) !!}
               <label class="form-check-label" for="ativo">Publicar</label>
