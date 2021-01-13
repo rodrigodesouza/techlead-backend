@@ -16,9 +16,10 @@ class Show extends Component
 
     public function render(PedidoRepository $pedidoRepository)
     {
-        $pedidos = $pedidoRepository->pedidos();
+        $filtro = request()->all();
+        $pedidos = $pedidoRepository->pedidos($filtro, 15, 'desc');
 
-        return view('livewire.pedido.show', ['pedidos' => $pedidos]);
+        return view('livewire.pedido.show', ['pedidos' => $pedidos, 'filtro' => $filtro]);
     }
 
     public function alteraStatus(PedidoRepository $pedidoRepository, $id, $status)

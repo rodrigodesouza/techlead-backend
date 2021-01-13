@@ -21,11 +21,11 @@ class LivroRepository
 
     public function livrosDisponiveis()
     {
-        // dd();
-        return $this->model->select(DB::raw('DISTINCT livros.id'), 'livros.*', 'pedidos.cliente_id as solicitado')->leftJoin('pedidos', function($join) {
-                $join->on('livros.id', '=', 'pedidos.livro_id')
-                     ->where('pedidos.cliente_id', request()->user()->id);
-                })
+        // desabilitar ONLY_FULL_GROUP_BY para o problema com group by;
+        // DB::select("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
+
+        return $this->model
+                ->with('autor')
                 ->where('livros.ativo', 1)
                 // ->groupBy('livros.id')
                 ->get();

@@ -22,7 +22,7 @@ class ClienteController extends Controller
             $token          = $cliente->createToken($cliente->email);
             $cliente->token = $token->plainTextToken;
 
-            return $cliente->only(['name', 'email', 'celular', 'token']);
+            return $cliente;
         }
 
         throw ValidationException::withMessages([
@@ -47,7 +47,7 @@ class ClienteController extends Controller
             $token          = $cliente->createToken($cliente->email);
             $cliente->token = $token->plainTextToken;
 
-            return $cliente->only(['name', 'email', 'celular', 'token']);
+            return $cliente;
 
         } catch (\Exception $e) {
             // if (env('APP_DEBUG')) {

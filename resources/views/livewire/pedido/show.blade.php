@@ -24,8 +24,13 @@
               </td>
               <td>{{ $pedido->created_at->format('d/m/Y \à\s H:i') }}</td>
               <td>
+
                   @if($pedido->status_pedido == 'solicitado')
-                    <a href="javascript:void()" wire:click.prevent="alteraStatus({{ $pedido->id }}, 'aprovado')" class="btn btn-primary" disabled="{{ ($pedido->status_pedido == 'aprovado') ?  true : false }}">Aprovar</a>
+                    @if ($pedido->total_aprovado < 5)
+                        <a href="javascript:void()" wire:click.prevent="alteraStatus({{ $pedido->id }}, 'aprovado')" class="btn btn-primary" disabled="{{ ($pedido->status_pedido == 'aprovado') ?  true : false }}">Aprovar</a>
+                    @else
+                        <button class="btn btn-warning">({{ $pedido->total_aprovado }}) emprestados</button>
+                    @endif
                     <a href="javascript:void()" wire:click.prevent="alteraStatus({{ $pedido->id }}, 'negado')" class="btn btn-danger" disabled="{{ ($pedido->status_pedido == 'negado') ?  true : false }}">Recusar</a>
                   @endif
               </td>

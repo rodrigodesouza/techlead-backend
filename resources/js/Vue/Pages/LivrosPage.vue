@@ -15,9 +15,9 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            livros: null,
+    computed: {
+        livros: function() {
+            return this.$root.galeriaLivros;
         }
     },
     created() {
@@ -26,7 +26,7 @@ export default {
     methods: {
         getLivros() {
             this.$axios.get('/api/livros').then((res) => {
-                this.livros = res.data;
+                this.$root.galeriaLivros = res.data;
             });
         }
     },

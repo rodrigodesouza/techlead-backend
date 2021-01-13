@@ -46,9 +46,22 @@ class PedidoRepository
             }
 
             if ($livro->status == 'indisponivel') {
-                // segurança para não solicitar livro indisponível
+                // bloqueio para não solicitar livro indisponível
                 return response()->json([
                     'message' => "Livro não disponível!",
+                    'error' => true
+                ], 404);
+            }
+
+            $verificaSolicitacao = $this->model->where([
+                'cliente_id'    => request()->user()->id,
+                'livro_id'      => $input['livro_id'],
+                'status_pedido' => 'solicitado',
+            ])->first();
+
+            if (isset($verificaSolicitacao->id)) {
+                return response()->json([
+                    'message' => "Você já solicitou este livro.",
                     'error' => true
                 ], 404);
             }
@@ -62,7 +75,7 @@ class PedidoRepository
             DB::commit();
 
             return response()->json([
-                'solicitacao' => $solicitacao->only(['status_pedido', 'created_at', 'updated_at']),
+                'solicitacao' => $solicitacao, //->only(['id','status_pedido', 'created_at', 'updated_at']),
                 'message' => "Sua solicitação foi enviada! Avisaremos você em breve.",
             ], 201);
 
@@ -75,7 +88,6 @@ class PedidoRepository
                     'error' => true
                 ], 500);
         }
-
     }
 
     protected function totalEmprestados()
@@ -83,9 +95,13 @@ class PedidoRepository
         return $this->model->where('cliente_id', request()->user()->id)->where('status_pedido', 'aprovado')->count();
     }
 
-    public function pedidos()
+    public function pedidos($input = [], $limit = 15, $order = 'asc')
     {
-        return $this->model->orderBy('created_at', 'asc')->paginate(5);
+        return $this->model->select('pedidos.*', DB::raw('(SELECT count(p.id) FROM pedidos p WHERE p.cliente_id = pedidos.cliente_id AND p.status_pedido="aprovado") total_aprovado'))
+                            ->with('livro.autor')
+                            ->filter($input)
+                            ->orderBy('created_at', $order)
+                            ->paginate($limit);
     }
 
     public function alteraStatus($id, $status)
@@ -95,8 +111,6 @@ class PedidoRepository
             $pedido = $this->getModel()->find($id);
 
             if ($status == 'aprovado') {
-                // $livro = $this->livroRepository->getLivroModel()->where('status', 'disponivel')
-                //                         ->where('id', $pedido->livro_id)->update(['status' => 'indisponivel']);
                 if (isset($pedido->livro->id) and $pedido->livro->status == 'disponivel') {
                     $this->getModel()
                             ->where('livro_id', $pedido->livro_id)
@@ -124,4 +138,5 @@ class PedidoRepository
             throw $e;
         }
     }
+
 }

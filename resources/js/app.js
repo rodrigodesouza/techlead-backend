@@ -33,11 +33,14 @@ const router = routes;
 
 import vuexStore from './Vue/vuexStore';
 
-let apiAxios = axios.create({
+import axios from 'axios';
+
+var apiAxios = axios.create({
     timeout: 5000,
 });
 
 apiAxios.defaults.withCredentials = true;
+apiAxios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 router.beforeEach((to, from, next) => {
     if (vuexStore.getters.autenticado) {

@@ -76,7 +76,7 @@
 
                     if (retorno.data.token !== undefined) {
                         this.$root.setUserLogin(retorno.data)
-                        this.$router.push({name: 'livros'})
+                        this.$router.push({name: 'meusLivros'})
                     } else {
                         if (retorno.status !== 200 || retorno.status !== 201) {
                             this.titulo_erros = retorno.data.message;

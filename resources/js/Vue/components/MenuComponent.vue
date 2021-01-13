@@ -7,8 +7,14 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <!-- <li class="nav-item active">
+                <router-link class="nav-link" :to="{ name: '/'}">Home</router-link>
+            </li> -->
             <li class="nav-item active">
-            <a class="nav-link" href="">Home</a>
+                <router-link class="nav-link" :to="{ name: 'livros'}">Galeria</router-link>
+            </li>
+            <li class="nav-item active">
+                <router-link class="nav-link" :to="{ name: 'meusLivros'}">Meus livros</router-link>
             </li>
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

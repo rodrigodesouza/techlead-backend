@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import CadastroPage from './pages/CadastroPage';
 import LivrosPage from './pages/LivrosPage';
+import MeusLivrosPage from './pages/MeusLivrosPage';
 import ForgotPage from './pages/ForgotPage';
 
 export default new VueRouter({
@@ -20,6 +21,12 @@ export default new VueRouter({
             path: '/livros',
             name: 'livros',
             component: LivrosPage,
+            meta: { requiresLogin: true }
+        },
+        {
+            path: '/meus-livros',
+            name: 'meusLivros',
+            component: MeusLivrosPage,
             meta: { requiresLogin: true }
         },
         {
