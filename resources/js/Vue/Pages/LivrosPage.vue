@@ -1,7 +1,8 @@
 <template>
     <div class="card">
         <div class="card-header">
-            Livros
+            Galeria de livros
+            <!-- <input type="search" name="q" id="q" placeholder="buscar livro"> -->
         </div>
         <div class="card-body">
             <div class="row">
@@ -14,9 +15,9 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            livros: null,
+    computed: {
+        livros: function() {
+            return this.$root.galeriaLivros;
         }
     },
     created() {
@@ -24,9 +25,9 @@ export default {
     },
     methods: {
         getLivros() {
-            window.axios.get('/api/livros').then((res) => {
-                this.livros = res.data;
-            })
+            this.$axios.get('/api/livros').then((res) => {
+                this.$root.galeriaLivros = res.data;
+            });
         }
     },
 }

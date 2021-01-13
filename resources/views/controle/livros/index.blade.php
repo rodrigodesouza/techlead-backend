@@ -11,7 +11,7 @@
           <thead>
             <tr>
                 <th>#ID</th>
-                <th>Nome</th>
+                <th>Titulo</th>
                 <th>Autor</th>
                 <th>Disponível</th>
                 <th>Publicado</th>
@@ -25,7 +25,11 @@
                     <td>{{ $livro->id }}</td>
                     <td>{{ $livro->nome }}</td>
                     <td>{{ $livro->autor->nome ?? '' }}</td>
-                    <td>{{ $livro->status }}</td>
+                    <td>
+                        <span class="badge badge-{{ $livro->status == 'disponivel' ? 'success' : 'danger' }}">
+                            {{ ucfirst($livro->status) }}
+                        </span>
+                    </td>
                     <td>{{ ($livro->ativo) ? 'SIM' : 'NÃO' }}</td>
                     <td>{{ $livro->created_at->format('d/m/Y') }}</td>
                     <td>
@@ -39,13 +43,13 @@
                 </tr>
               @empty
                   <tr>
-                      <td colspan="5">Nenhum livro cadastrado.</td>
+                      <td colspan="7">Nenhum livro cadastrado.</td>
                   </tr>
               @endforelse
           </tbody>
           <tfoot>
               <tr>
-                  <td colspan="5">{!! $livros->links() !!}</td>
+                  <td colspan="7">{!! $livros->links() !!}</td>
               </tr>
           </tfoot>
       </table>

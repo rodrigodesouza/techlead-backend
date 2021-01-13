@@ -11,6 +11,7 @@
   <title>{{ config('app.name', 'Laravel') }}</title>
 
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('library/vue-pnotify/vue-pnotify.css') }}" rel="stylesheet">
     <style>
         body {
             background-color: #2f3031 !important;

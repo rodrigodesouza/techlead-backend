@@ -8,19 +8,9 @@ class AutorRepository
 {
     private $model;
 
-    public function getModel()
-    {
-        return $this->model;
-    }
-
-    public function setModel($model)
-    {
-        $this->model = $model;
-    }
-
     public function __construct(Autor $autor)
     {
-        $this->setModel($autor);
+        $this->model = $autor;
     }
 
     public function getAutor($input): int

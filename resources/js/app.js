@@ -14,13 +14,10 @@ Vue.use(VueRouter)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+// import Vue from 'vue'
+
+import VuePNotify from 'vue-pnotify'
+Vue.use(VuePNotify)
 
 // const files = require.context('./components/pages/', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
@@ -28,58 +25,26 @@ Vue.use(Vuex)
 Vue.component('menu-component', require('./Vue/components/MenuComponent.vue').default);
 Vue.component('card-component', require('./Vue/components/CardComponent.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+import mixin from './Vue/mixins/mixin';
+import pedidoMixin from './Vue/mixins/pedido';
+import routes from './Vue/routes';
 
-//  pages Vue
-import LoginPage from './Vue/pages/LoginPage';
-import ProfilePage from './Vue/pages/ProfilePage';
-import CadastroPage from './Vue/pages/CadastroPage';
-import LivrosPage from './Vue/pages/LivrosPage';
-import ForgotPage from './Vue/pages/ForgotPage';
-import mixin from './Vue/mixin';
-
-const router = new VueRouter({
-    mode: 'hash',
-    routes: [
-        {
-            path: '/',
-            name: 'login',
-            component: LoginPage
-        },
-        {
-            path: '/livros',
-            name: 'livros',
-            component: LivrosPage,
-            meta: { requiresLogin: true }
-        },
-        {
-            path: '/profile',
-            name: 'profile',
-            component: ProfilePage,
-            meta: { requiresLogin: true }
-        },
-        {
-            path: '/cadastrar',
-            name: 'cadastrar',
-            component: CadastroPage
-        },
-        {
-            path: '/esqueci-minha-senha',
-            name: 'forgot',
-            component: ForgotPage
-        },
-    ],
-});
+const router = routes;
 
 import vuexStore from './Vue/vuexStore';
 
+import axios from 'axios';
+
+var apiAxios = axios.create({
+    timeout: 5000,
+});
+
+apiAxios.defaults.withCredentials = true;
+apiAxios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 router.beforeEach((to, from, next) => {
     if (vuexStore.getters.autenticado) {
-        window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + vuexStore.state.accessToken;
+        apiAxios.defaults.headers.common['Authorization'] = 'Bearer ' + vuexStore.state.accessToken;
     }
     if (to.meta.requiresLogin !== undefined && !vuexStore.getters.autenticado) {
         next({ name: 'login' })
@@ -89,11 +54,25 @@ router.beforeEach((to, from, next) => {
     if (to.name === 'login') {
         next({name: 'livros'})
     }
-})
+});
+
+apiAxios.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    if (error.response.status !== undefined && error.response.status === 401) {
+        vuexStore.commit('setUsuario', null);
+        vuexStore.commit('setToken', null);
+        router.push({name: 'profile'})
+    }
+
+    throw error;
+});
+
+Vue.prototype.$axios = apiAxios;
 
 const app = new Vue({
     el: '#app',
     router,
-    mixins: [mixin],
+    mixins: [mixin, pedidoMixin],
     store: vuexStore,
 });

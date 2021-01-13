@@ -14,7 +14,7 @@
             {!! Form::model($livro ?? null, ['route' => 'controle.livros.store']) !!}
         @endif
             <div class="form-group">
-              <label for="nome">Titulo</label>
+              <label for="nome">Nome</label>
               {!! Form::text('nome', null, ['class' => 'form-control', 'placeholder' => 'Nome', 'aria-describedby' => "nomeHelp", 'maxlength' => 255, 'required']) !!}
               {{-- <small id="nomeHelp" class="form-text text-muted">Nome do livro</small> --}}
             </div>

@@ -13,6 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/dashboard.js', 'public/js')
     .js('resources/js/app.js', 'public/js')
+    .css('node_modules/vue-pnotify/dist/vue-pnotify.css', '/public/library/vue-pnotify/vue-pnotify.css')
     .vue()
     .sass('resources/sass/app.scss', 'public/css')
     .version()
