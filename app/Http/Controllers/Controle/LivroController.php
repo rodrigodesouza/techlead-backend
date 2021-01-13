@@ -140,9 +140,6 @@ class LivroController extends Controller
     public function destroy(Livro $livro)
     {
         try {
-            if (isset($input['autor_id'])) {
-                $input['autor_id'] = $this->autorRepository->getAutor($input);
-            }
 
             if ($livro->delete()) {
                 return redirect()->route('controle.livros.index')->with('msg', 'Registro excluido com sucesso!');

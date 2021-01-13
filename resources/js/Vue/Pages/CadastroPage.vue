@@ -29,12 +29,6 @@
                             <label>Confirmar Senha</label>
                             <input class="form-control" placeholder="" type="password" name="password_confirmation" id="password_confirmation" v-model="dados.password_confirmation">
                         </div>
-                        <!--
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label> <input type="checkbox"> Save password </label>
-                            </div>
-                        </div>  -->
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block" @click="cadastrar"> Cadastrar </button>
                         </div>

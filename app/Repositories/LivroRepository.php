@@ -21,13 +21,9 @@ class LivroRepository
 
     public function livrosDisponiveis()
     {
-        // desabilitar ONLY_FULL_GROUP_BY para o problema com group by;
-        // DB::select("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));");
-
         return $this->model
                 ->with('autor')
                 ->where('livros.ativo', 1)
-                // ->groupBy('livros.id')
                 ->get();
     }
 

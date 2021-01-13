@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $this->command->info('Criando usuário de acesso');
-        $email = 'contato@admin.com';
+        $email = 'admin@admin.com';
         $password = '12345678';
         $user = User::updateOrCreate([
             'email' => $email,

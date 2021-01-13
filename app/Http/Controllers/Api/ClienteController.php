@@ -7,9 +7,7 @@ use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Http\JsonResponse;
 
 class ClienteController extends Controller
 {
@@ -62,8 +60,6 @@ class ClienteController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('cliente')->logout();
-        // $request->session()->invalidate();
-        // $request->session()->regenerateToken();
 
         return response(['error' => false, 'message' => 'logout realizado!'], 200);
     }

@@ -2,11 +2,7 @@
 
 namespace App\Http\Livewire\Pedido;
 
-use App\Models\Livro;
-use App\Repositories\LivroRepository;
 use App\Repositories\PedidoRepository;
-use Exception;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 

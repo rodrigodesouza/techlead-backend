@@ -22,7 +22,6 @@
             @endauth
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            {{-- <a class="dropdown-item" href="#">Action</a>--}}
             <a class="dropdown-item" href="#">Perfil</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}"
